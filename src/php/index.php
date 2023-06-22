@@ -4,32 +4,32 @@
   header("Access-Control-Allow-Headers: X-Requested-With");  
   header('Content-Type: application/json');
 
-
   $toDoList = [
     [
-      'item' => "HTML",
+      'name' => "HTML",
       'done' => true,
     ],
     [
-      'item' => "CSS",
+      'name' => "CSS",
       'done' => true,
     ],
     [
-      'item' => "Responsive design",
+      'name' => "Responsive design",
       'done' => true,
     ],
     [
-      'item' => "Javascript",
+      'name' => "Javascript",
       'done' => true,
     ],
     [
-      'item' => "PHP",
+      'name' => "PHP",
       'done' => true,
     ],
     [
-      'item' => "Laravel",
+      'name' => "Laravel",
       'done' => false,
     ]
-    ];
+  ];
 
     echo json_encode($toDoList);
+?>
