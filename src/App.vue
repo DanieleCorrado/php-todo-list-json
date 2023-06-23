@@ -7,19 +7,17 @@ export default {
       tasks: [],
       newTask: {
         name: "",
-        complete: "false"
+        complete: false
       }
     };
   },
   methods: {
-
     onSubmit() {
       const url = 'http://localhost/newTask.php';
       const data = this.newTask;
       const headers = {
         headers: { 'Content-Type': 'multipart/form-data' }
       };
-
       axios.post(url, data, headers)
         .then(res => {
 
@@ -31,7 +29,6 @@ export default {
     },
 
     deleteTask(idx) {
-
       const url = 'http://localhost/deleteTask.php';
       const data = { "index": idx };
       const headers = {
@@ -42,8 +39,27 @@ export default {
           const data = res.data;
           this.tasks = data;
         });
+    },
+
+    changeStatus(idx) {
+      const url = 'http://localhost/changeStatus.php';
+      console.log(this.tasks[idx].name);
+      const data = {
+        "index": idx,
+        "taskName": this.tasks[idx].name,
+        "taskStatus": this.tasks[idx].complete
+      };
+      const headers = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      };
+      axios.post(url, data, headers)
+        .then(res => {
+          const data = res.data;
+          this.tasks = data;
+        });
     }
   },
+
   mounted() {
 
     axios.get("http://localhost/tasks.php")
@@ -68,8 +84,8 @@ export default {
 
     <div id="list">
       <ul>
-        <li v-for="(task, idx) in tasks" :class="task.complete === 'true' ? 'line-through' : ''" class="flex"> {{
-          task.name }}
+        <li v-for="(task, idx) in tasks" :class="task.complete === 'true' ? 'line-through' : ''" class="flex"> <span
+            @click="changeStatus(idx)">{{ task.name }}</span>
           <div class="delete" @click="deleteTask(idx)">
             <font-awesome-icon icon="fa-solid fa-trash-can" />
           </div>
