@@ -24,7 +24,7 @@ export default {
           const data = res.data;
           this.tasks = data;
           this.newTask.name = "";
-          this.newTask.complete = "false";
+          this.newTask.complete = false;
         })
     },
 
@@ -44,11 +44,7 @@ export default {
     changeStatus(idx) {
       const url = 'http://localhost/changeStatus.php';
       console.log(this.tasks[idx].name);
-      const data = {
-        "index": idx,
-        "taskName": this.tasks[idx].name,
-        "taskStatus": this.tasks[idx].complete
-      };
+      const data = { "index": idx };
       const headers = {
         headers: { 'Content-Type': 'multipart/form-data' }
       };
@@ -84,7 +80,7 @@ export default {
 
     <div id="list">
       <ul>
-        <li v-for="(task, idx) in tasks" :class="task.complete === 'true' ? 'line-through' : ''" class="flex"> <span
+        <li v-for="(task, idx) in  tasks " :class="task.complete ? 'line-through' : ''" class="flex"> <span
             @click="changeStatus(idx)">{{ task.name }}</span>
           <div class="delete" @click="deleteTask(idx)">
             <font-awesome-icon icon="fa-solid fa-trash-can" />

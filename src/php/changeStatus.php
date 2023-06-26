@@ -4,29 +4,13 @@ header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Headers: X-Requested-With");
 header('Content-Type: application/json');
 
-$index = $_POST['index'];
-$name = $_POST['taskName'];
-$status = $_POST['taskStatus'];
+$data = $_POST;
+$index = $data['index'];
 
 $tasksStr = file_get_contents("data.json");
-$tasks = json_decode($tasksStr);
+$tasks = json_decode($tasksStr, true);
 
-if($status === "false") {
-
-  $tasks[$index] = [
-    "name" => $name,
-    "complete" => "true"
-  ];
-
-} else {
-
-  $tasks[$index] = [
-    "name" => $name,
-    "complete" => "false"
-  ];
-
-}
-
+$tasks[$index]['complete'] = !$tasks[$index]['complete'];
 
 $tasksStr = json_encode($tasks);
 
