@@ -43,7 +43,6 @@ export default {
 
     changeStatus(idx) {
       const url = 'http://localhost/changeStatus.php';
-      console.log(this.tasks[idx].name);
       const data = { "index": idx };
       const headers = {
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -60,7 +59,6 @@ export default {
 
     axios.get("http://localhost/tasks.php")
       .then(res => {
-
         const data = res.data;
         this.tasks = data;
       });
